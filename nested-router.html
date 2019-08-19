@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width initial-scale=1.0">
+        <title>nested router 실습</title>
+    </head>
+    <body>
+        <div id="app">
+            <router-view></router-view>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.1.2/vue-router.js"></script>
+        <script>
+            const User = {
+                template: `
+                    <div>
+                        User component
+                        <router-view></router-view>
+                    </div>
+                `,
+            };
+            const UserProfile = { template: '<p>user profile component</p>' };
+            const UserPosts = { template: '<p>user posts component</p>' }
+            const routes = [
+                {
+                    path: '/user',
+                    component: User,
+                    children: [
+                        {
+                            path: 'posts',
+                            component: UserPosts
+                        },
+                        {
+                            path: 'profile',
+                            component: UserProfile
+                        }
+                    ]
+                }
+            ];
+            const router = new VueRouter({
+                routes
+            });
+            const app = new Vue({
+                router
+            }).$mount("#app");
+        </script>
+    </body>
+</html>

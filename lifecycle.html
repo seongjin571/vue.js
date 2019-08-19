@@ -15,16 +15,16 @@
                 data: {
                     message: sample
                 },
-                beforeCreate: function(){
+                beforeCreate: function(){ 
                     console.log("beforeCreate");
                 },
                 created: function(){
                     const app2 = document.querySelector("#app");
                     console.log(app2.innerHTML);
                     console.log(this.message, app.innerHTML);
-                    console.log("created");
+                    console.log("created"); 
                 },
-                mounted: function(){
+                mounted: function(){ 
                     const app2 = document.querySelector("#app");
                     console.log(app2.innerHTML);
                     console.log(this.message);
