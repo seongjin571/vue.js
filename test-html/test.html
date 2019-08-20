@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width initial-scale=1.0">
+        <title>test</title>
+    </head>
+
+    <body>
+        <div id="app" v-once>
+            {{ message }}
+            <button-component v-on:upload-num="uploadNum"></button-component>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            Vue.component('button-component',{
+                template: '<button v-on:click="upload">click</button>',
+                methods: {
+                    upload: function(){
+                        this.$emit('upload-num');
+                    }
+                }
+            })
+            const app = new Vue({
+                el: "#app",
+                data: {
+                    message: 2
+                },
+                methods: {
+                    uploadNum: function(){
+                        console.log(app._data.message++);
+                    }
+                }
+            })
+        </script>
+    </body>
+
+</html>

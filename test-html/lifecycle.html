@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id="app">
+            {{ message }}
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            const sample = "Hello Vue!";
+            const app = document.querySelector("#app");
+            new Vue({
+                el: '#app',
+                data: {
+                    message: sample
+                },
+                beforeCreate: function(){ 
+                    console.log("beforeCreate");
+                },
+                created: function(){
+                    const app2 = document.querySelector("#app");
+                    console.log(app2.innerHTML);
+                    console.log(this.message, app.innerHTML);
+                    console.log("created"); 
+                },
+                mounted: function(){ 
+                    const app2 = document.querySelector("#app");
+                    console.log(app2.innerHTML);
+                    console.log(this.message);
+                    this.message = 'Hello Vue2!';
+                },
+                updated: function(){
+                    console.log(this.message, app.innerHTML);
+                    console.log("updated");
+                }
+            });
+
+            console.log(app.innerHTML);
+        </script>
+        
+    </body>
+</html>
