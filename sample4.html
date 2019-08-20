@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width initial-scale=1.0">
+        <title>directive 테스트</title>
+    </head>
+    <body>
+        <div id="app">
+            <header>
+                <h3>{{ message }}</h3>
+                <h3>{{ anotherMessage }}</h3>
+            </header>
+            <section>
+                <p v-bind:id="uid"></p>
+                <button v-on:click="clickBtn">alert</button>
+                <button @click="eventMethod(10)">test</button>
+                <ul v-if="flag">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                </ul>
+            </section>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="js/app3.js"></script>
+    </body>
+</html>
