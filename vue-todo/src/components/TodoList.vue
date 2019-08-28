@@ -1,35 +1,23 @@
 <template>
     <section>
-        <ul>
-            <li v-for="(todoItem, idx) in todoItems" :key="todoItem" class="shadow">
+        <transition-group name="list" tag="ul">
+            <li v-for="(todoItem, idx) in propsdata" :key="todoItem" class="shadow">
                 <i class="checkBtn fas fa-check" aria-hidden="true"></i>
-                {{ todoItem }}
+                    {{ todoItem }}
                 <span class="removeBtn" type="button" @click="removeTodo(todoItem, idx)">
                     <i class="far fa-trash-alt" aria-hidden="true"></i>
                 </span>
             </li>
-        </ul>
+        </transition-group>
     </section>
 </template>
 
 <script>
 export default {
-    data(){
-        return{
-            todoItems: []
-        }
-    },
-    created(){
-        if(localStorage.length > 0){
-            for(let i = 0; i < localStorage.length; i++){
-                this.todoItems.push(localStorage.key(i));
-            }
-        }
-    },
+    props: ['propsdata'],
     methods:{
         removeTodo(todoItem, idx){
-            localStorage.removeItem(todoItem);
-            this.todoItems.splice(idx, 1);
+            this.$emit('removeTodo', todoItem, idx);
         }
     }
 }
@@ -60,5 +48,12 @@ export default {
     .removeBtn{
         margin-left: auto;
         color: #de4343;
+    }
+    .list-enter-active, .list-leave-active{
+        transition: all 1s
+    }
+    .list-enter, .list-leave-to{
+        opacity: 0;
+        transform: translateY(30px);
     }
 </style>
