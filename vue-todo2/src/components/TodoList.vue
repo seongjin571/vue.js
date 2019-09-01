@@ -1,8 +1,10 @@
 <template>
     <div>
         <ul>
-            <li v-for="(todoItem, idx) in todoItems" v-bind:key="todoItem" class="shadow">
-                {{ todoItem }}
+            <li v-for="(todoItem, idx) in propsdata" v-bind:key="todoItem.item" class="shadow">
+                <i class="checkBtn fas fa-check" v-bind:class="{checkBtnComplted: todoItem.completed}" 
+                v-on:click="toggleComplete(todoItem, idx)"></i>
+                <span v-bind:class="{textCompleted: todoItem.completed}"> {{ todoItem.item }}</span>
                 <span class="removeBtn" v-on:click="removeTodo(todoItem, idx)">
                     <i class="fas fa-trash-alt"></i>
                 </span>
@@ -13,26 +15,16 @@
 
 <script>
 export default {
-    data: function(){
-        return{
-            todoItems: []
-        }
-    },
+    props: ['propsdata'],
     methods: { 
         removeTodo: function(todoItem, idx){
-            localStorage.removeItem(todoItem);
-            this.todoItems.splice(idx, 1);
+            this.$emit('removeItem', todoItem, idx);
+        },
+        toggleComplete: function(todoItem, idx){
+            this.$emit('toggleComplete', todoItem, idx);
         }
     },
-    created: function(){
-        if(localStorage.length > 0){
-            for(let i = 0; i < localStorage.length; i++){
-                if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-                    this.todoItems.push(localStorage.key(i));
-                }
-            }
-        }
-    }
+
 }
 </script>
 
@@ -61,6 +53,13 @@ export default {
     .removeBtn{
         margin-left: auto;
         color: #de4343;
+    }
+    .textCompleted{
+        text-decoration: line-through;
+        color: #b3adad;
+    }
+    .checkBtnComplted{
+        color: #b3adad;
     }
     .list-enter-active, .list-leave-active{
         transition: all 1s
